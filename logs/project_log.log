@@ -1,0 +1,74 @@
+2025-01-26 15:34:18.977 | INFO     | utils.utils_logger:<module>:38 - Logging to file: logs\project_log.log
+2025-01-26 15:34:18.977 | INFO     | __main__:main:103 - START producer.
+2025-01-26 15:34:18.977 | INFO     | utils.utils_producer:get_zookeeper_address:57 - Zookeeper address: localhost:2181
+2025-01-26 15:34:23.057 | ERROR    | utils.utils_producer:check_zookeeper_service_is_ready:82 - Error checking Zookeeper readiness: [WinError 10061] No connection could be made because the target machine actively refused it
+2025-01-26 15:34:23.057 | ERROR    | utils.utils_producer:verify_services:114 - Zookeeper is not ready. Please check your Zookeeper setup. Exiting...
+2025-01-26 15:43:18.016 | INFO     | utils.utils_logger:<module>:38 - Logging to file: logs\project_log.log
+2025-01-26 15:43:18.016 | INFO     | __main__:main:78 - START consumer.
+2025-01-26 15:43:18.016 | INFO     | __main__:get_kafka_topic:35 - Kafka topic: buzzline
+2025-01-26 15:43:18.016 | INFO     | __main__:get_kafka_consumer_group_id:42 - Kafka consumer group id: default_group
+2025-01-26 15:43:18.016 | INFO     | __main__:main:83 - Consumer: Topic 'buzzline' and group 'default_group'...
+2025-01-26 15:43:18.016 | INFO     | utils.utils_producer:get_kafka_broker_address:50 - Kafka broker address: localhost:9092
+2025-01-26 15:43:18.016 | INFO     | utils.utils_consumer:create_kafka_consumer:44 - Creating Kafka consumer. Topic='buzzline' and group ID='default_group'.
+2025-01-26 15:43:20.044 | ERROR    | utils.utils_consumer:create_kafka_consumer:60 - Error creating Kafka consumer: NoBrokersAvailable
+2025-01-26 15:43:44.529 | INFO     | utils.utils_logger:<module>:38 - Logging to file: logs\project_log.log
+2025-01-26 15:43:44.529 | INFO     | __main__:main:78 - START consumer.
+2025-01-26 15:43:44.529 | INFO     | __main__:get_kafka_topic:35 - Kafka topic: buzzline
+2025-01-26 15:43:44.529 | INFO     | __main__:get_kafka_consumer_group_id:42 - Kafka consumer group id: default_group
+2025-01-26 15:43:44.529 | INFO     | __main__:main:83 - Consumer: Topic 'buzzline' and group 'default_group'...
+2025-01-26 15:43:44.529 | INFO     | utils.utils_producer:get_kafka_broker_address:50 - Kafka broker address: localhost:9092
+2025-01-26 15:43:44.529 | INFO     | utils.utils_consumer:create_kafka_consumer:44 - Creating Kafka consumer. Topic='buzzline' and group ID='default_group'.
+2025-01-26 15:43:46.571 | ERROR    | utils.utils_consumer:create_kafka_consumer:60 - Error creating Kafka consumer: NoBrokersAvailable
+2025-01-26 15:54:45.958 | INFO     | utils.utils_logger:<module>:38 - Logging to file: logs\project_log.log
+2025-01-26 15:54:45.958 | INFO     | __main__:main:103 - START producer.
+2025-01-26 15:54:45.958 | INFO     | utils.utils_producer:get_zookeeper_address:57 - Zookeeper address: localhost:2181
+2025-01-26 15:54:50.044 | ERROR    | utils.utils_producer:check_zookeeper_service_is_ready:82 - Error checking Zookeeper readiness: [WinError 10061] No connection could be made because the target machine actively refused it
+2025-01-26 15:54:50.045 | ERROR    | utils.utils_producer:verify_services:114 - Zookeeper is not ready. Please check your Zookeeper setup. Exiting...
+2025-01-26 16:00:37.868 | INFO     | utils.utils_logger:<module>:38 - Logging to file: logs\project_log.log
+2025-01-26 16:00:37.868 | INFO     | __main__:main:103 - START producer.
+2025-01-26 16:00:37.868 | INFO     | utils.utils_producer:get_zookeeper_address:57 - Zookeeper address: localhost:2181
+2025-01-26 16:00:41.955 | ERROR    | utils.utils_producer:check_zookeeper_service_is_ready:82 - Error checking Zookeeper readiness: [WinError 10061] No connection could be made because the target machine actively refused it
+2025-01-26 16:00:41.955 | ERROR    | utils.utils_producer:verify_services:114 - Zookeeper is not ready. Please check your Zookeeper setup. Exiting...
+2025-01-26 16:02:08.126 | INFO     | utils.utils_logger:<module>:38 - Logging to file: logs\project_log.log
+2025-01-26 16:02:08.126 | INFO     | __main__:main:103 - START producer.
+2025-01-26 16:02:08.126 | INFO     | utils.utils_producer:get_zookeeper_address:57 - Zookeeper address: localhost:2181
+2025-01-26 16:02:12.230 | ERROR    | utils.utils_producer:check_zookeeper_service_is_ready:82 - Error checking Zookeeper readiness: [WinError 10061] No connection could be made because the target machine actively refused it
+2025-01-26 16:02:12.230 | ERROR    | utils.utils_producer:verify_services:114 - Zookeeper is not ready. Please check your Zookeeper setup. Exiting...
+2025-01-26 16:10:39.449 | INFO     | utils.utils_logger:<module>:38 - Logging to file: logs\project_log.log
+2025-01-26 16:10:39.449 | INFO     | __main__:main:103 - START producer.
+2025-01-26 16:10:39.449 | INFO     | utils.utils_producer:get_zookeeper_address:57 - Zookeeper address: localhost:2181
+2025-01-26 16:10:43.489 | ERROR    | utils.utils_producer:check_zookeeper_service_is_ready:82 - Error checking Zookeeper readiness: [WinError 10061] No connection could be made because the target machine actively refused it
+2025-01-26 16:10:43.489 | ERROR    | utils.utils_producer:verify_services:114 - Zookeeper is not ready. Please check your Zookeeper setup. Exiting...
+2025-01-26 16:19:05.456 | INFO     | utils.utils_logger:<module>:38 - Logging to file: logs\project_log.log
+2025-01-26 16:19:05.456 | INFO     | __main__:main:78 - START consumer.
+2025-01-26 16:19:05.456 | INFO     | __main__:get_kafka_topic:35 - Kafka topic: buzzline
+2025-01-26 16:19:05.456 | INFO     | __main__:get_kafka_consumer_group_id:42 - Kafka consumer group id: default_group
+2025-01-26 16:19:05.456 | INFO     | __main__:main:83 - Consumer: Topic 'buzzline' and group 'default_group'...
+2025-01-26 16:19:05.456 | INFO     | utils.utils_producer:get_kafka_broker_address:50 - Kafka broker address: localhost:9092
+2025-01-26 16:19:05.456 | INFO     | utils.utils_consumer:create_kafka_consumer:44 - Creating Kafka consumer. Topic='buzzline' and group ID='default_group'.
+2025-01-26 16:19:07.474 | ERROR    | utils.utils_consumer:create_kafka_consumer:60 - Error creating Kafka consumer: NoBrokersAvailable
+2025-01-26 16:49:35.118 | INFO     | utils.utils_logger:<module>:38 - Logging to file: logs\project_log.log
+2025-01-26 16:49:35.118 | INFO     | __main__:main:78 - START consumer.
+2025-01-26 16:49:35.118 | INFO     | __main__:get_kafka_topic:35 - Kafka topic: buzzline
+2025-01-26 16:49:35.118 | INFO     | __main__:get_kafka_consumer_group_id:42 - Kafka consumer group id: default_group
+2025-01-26 16:49:35.118 | INFO     | __main__:main:83 - Consumer: Topic 'buzzline' and group 'default_group'...
+2025-01-26 16:49:35.118 | INFO     | utils.utils_producer:get_kafka_broker_address:50 - Kafka broker address: localhost:9092
+2025-01-26 16:49:35.118 | INFO     | utils.utils_consumer:create_kafka_consumer:44 - Creating Kafka consumer. Topic='buzzline' and group ID='default_group'.
+2025-01-26 16:49:37.135 | ERROR    | utils.utils_consumer:create_kafka_consumer:60 - Error creating Kafka consumer: NoBrokersAvailable
+2025-01-26 16:50:24.211 | INFO     | utils.utils_logger:<module>:38 - Logging to file: logs\project_log.log
+2025-01-26 16:50:54.779 | INFO     | utils.utils_logger:<module>:38 - Logging to file: logs\project_log.log
+2025-01-26 16:51:30.805 | INFO     | utils.utils_logger:<module>:38 - Logging to file: logs\project_log.log
+2025-01-26 16:51:30.805 | INFO     | __main__:main:103 - START producer.
+2025-01-26 16:51:30.805 | INFO     | utils.utils_producer:get_zookeeper_address:57 - Zookeeper address: localhost:2181
+2025-01-26 16:51:34.859 | ERROR    | utils.utils_producer:check_zookeeper_service_is_ready:82 - Error checking Zookeeper readiness: [WinError 10061] No connection could be made because the target machine actively refused it
+2025-01-26 16:51:34.860 | ERROR    | utils.utils_producer:verify_services:114 - Zookeeper is not ready. Please check your Zookeeper setup. Exiting...
+2025-01-26 16:56:58.422 | INFO     | utils.utils_logger:<module>:38 - Logging to file: logs\project_log.log
+2025-01-26 16:56:58.422 | INFO     | __main__:main:103 - START producer.
+2025-01-26 16:56:58.422 | INFO     | utils.utils_producer:get_zookeeper_address:57 - Zookeeper address: localhost:2181
+2025-01-26 16:57:02.521 | ERROR    | utils.utils_producer:check_zookeeper_service_is_ready:82 - Error checking Zookeeper readiness: [WinError 10061] No connection could be made because the target machine actively refused it
+2025-01-26 16:57:02.522 | ERROR    | utils.utils_producer:verify_services:114 - Zookeeper is not ready. Please check your Zookeeper setup. Exiting...
+2025-01-26 17:03:30.811 | INFO     | utils.utils_logger:<module>:38 - Logging to file: logs\project_log.log
+2025-01-26 17:03:30.812 | INFO     | __main__:main:100 - START producer.
+2025-01-26 17:03:30.812 | INFO     | utils.utils_producer:get_zookeeper_address:57 - Zookeeper address: localhost:2181
+2025-01-26 17:03:34.881 | ERROR    | utils.utils_producer:check_zookeeper_service_is_ready:82 - Error checking Zookeeper readiness: [WinError 10061] No connection could be made because the target machine actively refused it
+2025-01-26 17:03:34.883 | ERROR    | utils.utils_producer:verify_services:114 - Zookeeper is not ready. Please check your Zookeeper setup. Exiting...

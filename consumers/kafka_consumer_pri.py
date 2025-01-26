@@ -1,9 +1,3 @@
-"""
-kafka_consumer_case.py
-
-Consume messages from a Kafka topic and process them.
-"""
-
 #####################################
 # Import Modules
 #####################################
@@ -28,68 +22,51 @@ load_dotenv()
 # Getter Functions for .env Variables
 #####################################
 
-
 def get_kafka_topic() -> str:
     """Fetch Kafka topic from environment or use default."""
-    topic = os.getenv("KAFKA_TOPIC", "unknown_topic")
+    topic = os.getenv("KAFKA_TOPIC", "buzzline")  # Ensure correct topic name
     logger.info(f"Kafka topic: {topic}")
     return topic
 
 
-def get_kafka_consumer_group_id() -> int:
+def get_kafka_consumer_group_id() -> str:
     """Fetch Kafka consumer group id from environment or use default."""
-    group_id: str = os.getenv("KAFKA_CONSUMER_GROUP_ID_JSON", "default_group")
+    group_id: str = os.getenv("KAFKA_CONSUMER_GROUP_ID", "default_group")  # Changed variable name for clarity
     logger.info(f"Kafka consumer group id: {group_id}")
     return group_id
 
-
 #####################################
 # Define a function to process a single message
-# #####################################
-
+#####################################
 
 def process_message(message: str) -> None:
-    """
-    Process a single message.
-
-    For now, this function simply logs the message.
-    You can extend it to perform other tasks, like counting words
-    or storing data in a database.
-
-    Args:
-        message (str): The message to process.
-    """
     logger.info(f"Processing message: {message}")
-
+    if "Weather" in message:
+        logger.info(f"Weather update: {message}")
+    else:
+        logger.warning(f"Non-weather message received: {message}")
 
 #####################################
 # Define main function for this module
 #####################################
 
-
 def main() -> None:
-    """
-    Main entry point for the consumer.
-
-    - Reads the Kafka topic name and consumer group ID from environment variables.
-    - Creates a Kafka consumer using the `create_kafka_consumer` utility.
-    - Processes messages from the Kafka topic.
-    """
     logger.info("START consumer.")
 
-    # fetch .env content
+    # Fetch .env content
     topic = get_kafka_topic()
     group_id = get_kafka_consumer_group_id()
     logger.info(f"Consumer: Topic '{topic}' and group '{group_id}'...")
 
     # Create the Kafka consumer using the helpful utility function.
-    consumer = create_kafka_consumer(topic,group_id)
+    consumer = create_kafka_consumer(topic, group_id)
 
-     # Poll and process messages
+    # Poll and process messages
     logger.info(f"Polling messages from topic '{topic}'...")
     try:
         for message in consumer:
-            message_str = message.value
+            # Check if the message is in bytes, and decode it if necessary
+            message_str = message.value.decode('utf-8') if isinstance(message.value, bytes) else message.value
             logger.debug(f"Received message at offset {message.offset}: {message_str}")
             process_message(message_str)
     except KeyboardInterrupt:
@@ -109,4 +86,3 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
-    
