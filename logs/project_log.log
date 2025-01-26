@@ -72,3 +72,16 @@
 2025-01-26 17:03:30.812 | INFO     | utils.utils_producer:get_zookeeper_address:57 - Zookeeper address: localhost:2181
 2025-01-26 17:03:34.881 | ERROR    | utils.utils_producer:check_zookeeper_service_is_ready:82 - Error checking Zookeeper readiness: [WinError 10061] No connection could be made because the target machine actively refused it
 2025-01-26 17:03:34.883 | ERROR    | utils.utils_producer:verify_services:114 - Zookeeper is not ready. Please check your Zookeeper setup. Exiting...
+2025-01-26 17:21:57.049 | INFO     | utils.utils_logger:<module>:38 - Logging to file: logs\project_log.log
+2025-01-26 17:21:57.049 | INFO     | __main__:main:100 - START producer.
+2025-01-26 17:21:57.049 | INFO     | utils.utils_producer:get_zookeeper_address:57 - Zookeeper address: localhost:2181
+2025-01-26 17:22:01.119 | ERROR    | utils.utils_producer:check_zookeeper_service_is_ready:82 - Error checking Zookeeper readiness: [WinError 10061] No connection could be made because the target machine actively refused it
+2025-01-26 17:22:01.120 | ERROR    | utils.utils_producer:verify_services:114 - Zookeeper is not ready. Please check your Zookeeper setup. Exiting...
+2025-01-26 17:22:52.579 | INFO     | utils.utils_logger:<module>:38 - Logging to file: logs\project_log.log
+2025-01-26 17:22:52.579 | INFO     | __main__:main:54 - START consumer.
+2025-01-26 17:22:52.579 | INFO     | __main__:get_kafka_topic:28 - Kafka topic: buzzline
+2025-01-26 17:22:52.579 | INFO     | __main__:get_kafka_consumer_group_id:35 - Kafka consumer group id: default_group
+2025-01-26 17:22:52.579 | INFO     | __main__:main:59 - Consumer: Topic 'buzzline' and group 'default_group'...
+2025-01-26 17:22:52.579 | INFO     | utils.utils_producer:get_kafka_broker_address:50 - Kafka broker address: localhost:9092
+2025-01-26 17:22:52.579 | INFO     | utils.utils_consumer:create_kafka_consumer:44 - Creating Kafka consumer. Topic='buzzline' and group ID='default_group'.
+2025-01-26 17:22:54.614 | ERROR    | utils.utils_consumer:create_kafka_consumer:60 - Error creating Kafka consumer: NoBrokersAvailable

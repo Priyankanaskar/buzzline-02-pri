@@ -75,12 +75,14 @@ Windows:
 ```shell
 .venv\Scripts\activate
 py -m consumers.kafka_consumer_case
+py -m consumers.kafka_consumer_pri
 ```
 
 Mac/Linux:
 ```zsh
 source .venv/bin/activate
 python3 -m consumers.kafka_consumer_case
+python3 -m consumers.kafka_consumer_pri
 ```
 
 ## Later Work Sessions
