@@ -1,88 +1,38 @@
-#####################################
-# Import Modules
-#####################################
-
-# Import packages from Python Standard Library
 import os
-
-# Import external packages
+import json
+from kafka import KafkaConsumer
 from dotenv import load_dotenv
+import logging
 
-# Import functions from local modules
-from utils.utils_consumer import create_kafka_consumer
-from utils.utils_logger import logger
-
-#####################################
-# Load Environment Variables
-#####################################
-
+# Load environment variables
 load_dotenv()
 
-#####################################
-# Getter Functions for .env Variables
-#####################################
+# Configure logging
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger("WeatherConsumer")
 
-def get_kafka_topic() -> str:
-    """Fetch Kafka topic from environment or use default."""
-    topic = os.getenv("KAFKA_TOPIC", "buzzline")  # Ensure correct topic name
-    logger.info(f"Kafka topic: {topic}")
-    return topic
+# Kafka settings
+KAFKA_BROKER = os.getenv("KAFKA_BROKER", "localhost:9092")
+KAFKA_TOPIC = os.getenv("KAFKA_TOPIC", "weather_topic")
 
+# Function to create Kafka consumer
+def create_kafka_consumer():
+    return KafkaConsumer(
+        KAFKA_TOPIC,
+        bootstrap_servers=KAFKA_BROKER,
+        auto_offset_reset="earliest",
+        enable_auto_commit=True,
+        value_deserializer=lambda v: json.loads(v.decode("utf-8"))
+    )
 
-def get_kafka_consumer_group_id() -> str:
-    """Fetch Kafka consumer group id from environment or use default."""
-    group_id: str = os.getenv("KAFKA_CONSUMER_GROUP_ID", "default_group")  # Changed variable name for clarity
-    logger.info(f"Kafka consumer group id: {group_id}")
-    return group_id
+# Main consumer function
+def run_consumer():
+    logger.info("Starting Kafka consumer...")
+    consumer = create_kafka_consumer()
 
-#####################################
-# Define a function to process a single message
-#####################################
-
-def process_message(message: str) -> None:
-    logger.info(f"Processing message: {message}")
-    if "Weather" in message:
-        logger.info(f"Weather update: {message}")
-    else:
-        logger.warning(f"Non-weather message received: {message}")
-
-#####################################
-# Define main function for this module
-#####################################
-
-def main() -> None:
-    logger.info("START consumer.")
-
-    # Fetch .env content
-    topic = get_kafka_topic()
-    group_id = get_kafka_consumer_group_id()
-    logger.info(f"Consumer: Topic '{topic}' and group '{group_id}'...")
-
-    # Create the Kafka consumer using the helpful utility function.
-    consumer = create_kafka_consumer(topic, group_id)
-
-    # Poll and process messages
-    logger.info(f"Polling messages from topic '{topic}'...")
-    try:
-        for message in consumer:
-            # Check if the message is in bytes, and decode it if necessary
-            message_str = message.value.decode('utf-8') if isinstance(message.value, bytes) else message.value
-            logger.debug(f"Received message at offset {message.offset}: {message_str}")
-            process_message(message_str)
-    except KeyboardInterrupt:
-        logger.warning("Consumer interrupted by user.")
-    except Exception as e:
-        logger.error(f"Error while consuming messages: {e}")
-    finally:
-        consumer.close()
-        logger.info(f"Kafka consumer for topic '{topic}' closed.")
-
-    logger.info(f"END consumer for topic '{topic}' and group '{group_id}'.")
-
-
-#####################################
-# Conditional Execution
-#####################################
+    for message in consumer:
+        weather_data = message.value
+        logger.info(f"Received weather update: {weather_data}")
 
 if __name__ == "__main__":
-    main()
+    run_consumer()

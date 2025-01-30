@@ -1,134 +1,77 @@
-#####################################
-# Import Modules
-#####################################
-
-# Import packages from Python Standard Library
 import os
-import sys
 import time
-import requests 
-
-# Import external packages
+import requests
+from bs4 import BeautifulSoup
+from kafka import KafkaProducer
 from dotenv import load_dotenv
+import json
+import logging
+
+# Load environment variables
 load_dotenv()
 
-# Import functions from local modules
-from utils.utils_producer import (
-    verify_services,
-    create_kafka_producer,
-    create_kafka_topic,
-)
-from utils.utils_logger import logger
+# Configure logging
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger("WeatherProducer")
 
-#####################################
-# Load Environment Variables
-#####################################
+# Kafka settings
+KAFKA_BROKER = os.getenv("KAFKA_BROKER", "localhost:9092")
+KAFKA_TOPIC = os.getenv("KAFKA_TOPIC", "weather_topic")
 
-load_dotenv()
+# Weather URL from .env
+WEATHER_URL = os.getenv("WEATHER_URL")
 
-#####################################
-# Getter Functions for .env Variables
-#####################################
+if not WEATHER_URL:
+    logger.error("No weather URL found! Please set WEATHER_URL in .env.")
+    exit(1)
 
-# Fetch the OpenWeather API key from the environment
-API_KEY = os.getenv("OPENWEATHER_API_KEY")
-BASE_URL = "http://api.openweathermap.org/data/2.5/weather"
-
-def get_kafka_topic() -> str:
-    """Fetch Kafka topic from environment or use default."""
-    topic = os.getenv("KAFKA_TOPIC", "buzz_topic")
-    logger.info(f"Kafka topic: {topic}")
-    return topic
-
-
-def get_message_interval() -> int:
-    """Fetch message interval from environment or use default."""
-    interval = int(os.getenv("MESSAGE_INTERVAL_SECONDS", 60))
-    logger.info(f"Message interval: {interval} seconds")
-    return interval
-
-def fetch_weather_data(city):
-    """Fetch weather data for the given city."""
-    url = f"{BASE_URL}?q={city}&appid={API_KEY}&units=metric"
+# Function to scrape weather data
+def fetch_weather_data():
     try:
-        response = requests.get(url)
+        headers = {"User-Agent": "Mozilla/5.0"}  # Avoid getting blocked
+        response = requests.get(WEATHER_URL, headers=headers)
         response.raise_for_status()
-        data = response.json()
+
+        # Parse the HTML content
+        soup = BeautifulSoup(response.text, "html.parser")
+
+        # Extract weather details (modify these selectors as needed)
+        temperature = soup.find(class_="CurrentConditions--tempValue--3KcTQ").text.strip()
+        condition = soup.find(class_="CurrentConditions--phraseValue--2xXSr").text.strip()
+
         return {
-            "description": data["weather"][0]["description"],
-            "temp": data["main"]["temp"]
+            "temperature": temperature,
+            "condition": condition,
+            "timestamp": time.time(),
         }
     except requests.exceptions.RequestException as e:
         logger.error(f"Error fetching weather data: {e}")
         return None
+    except AttributeError:
+        logger.error("Could not find weather data on the page. The HTML structure may have changed.")
+        return None
 
-#####################################
-# Message Generator
-#####################################
+# Function to create Kafka producer
+def create_kafka_producer():
+    return KafkaProducer(
+        bootstrap_servers=KAFKA_BROKER,
+        value_serializer=lambda v: json.dumps(v).encode("utf-8")
+    )
 
-
-def generate_messages(producer, topic, interval_secs, city):
-        try:
-            while True:
-                # Request weather data from OpenWeather API
-                weather_data = fetch_weather_data(city)
-                
-                if weather_data:
-                    message = f"Weather in {city}: {weather_data['description']}, Temp: {weather_data['temp']}°C"
-                else:
-                    message = f"Could not retrieve weather data for {city}."
-
-                logger.info(f"Generated buzz: {message}")
-                producer.send(topic, value=message)
-                logger.info(f"Sent message to topic '{topic}': {message}")
-                
-                time.sleep(interval_secs)
-        except KeyboardInterrupt:
-            logger.warning("Producer interrupted by user.")
-        except Exception as e:
-            logger.error(f"Error in message generation: {e}")
-        finally:
-            producer.close()
-            logger.info("Kafka producer closed.")
-
-#####################################
-# Main Function
-#####################################
-
-
-def main():
-    logger.info("START producer.")
-    verify_services()
-
-    # fetch .env content
-    topic = get_kafka_topic()
-    interval_secs = get_message_interval()
-    city = os.getenv("CITY")  
-
-    # Create the Kafka producer
+# Main producer function
+def run_producer():
+    logger.info("Starting Kafka producer...")
     producer = create_kafka_producer()
-    if not producer:
-        logger.error("Failed to create Kafka producer. Exiting...")
-        sys.exit(3)
 
-    # Create topic if it doesn't exist
-    try:
-        create_kafka_topic(topic)
-        logger.info(f"Kafka topic '{topic}' is ready.")
-    except Exception as e:
-        logger.error(f"Failed to create or verify topic '{topic}': {e}")
-        sys.exit(1)
+    while True:
+        weather_data = fetch_weather_data()
+        if weather_data:
+            logger.info(f"Sending message: {weather_data}")
+            producer.send(KAFKA_TOPIC, value=weather_data)
+        else:
+            logger.error("Failed to fetch weather data, skipping message.")
 
-    # Generate and send messages
-    logger.info(f"Starting message production to topic '{topic}'...")
-    generate_messages(producer, topic, interval_secs, city)
-
-    logger.info("END producer.")
-
-
-#####################################
-# Conditional Execution
-#####################################
+        time.sleep(60)  # Send message every 60 seconds
 
 if __name__ == "__main__":
-    main()
+    run_producer()
