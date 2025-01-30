@@ -56,14 +56,13 @@ Windows:
 ```shell
 .venv\Scripts\activate
 py -m producers.kafka_producer_case
-
+py -m producers.kafka_producer_pri
 ```
 
 Mac/Linux:
 ```zsh
 source .venv/bin/activate
 python3 -m producers.kafka_producer_case
-python3 -m producers.kafka_producer_pri
 ```
 
 ## Task 5. Start a Kafka Consumer
