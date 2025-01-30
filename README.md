@@ -56,13 +56,14 @@ Windows:
 ```shell
 .venv\Scripts\activate
 py -m producers.kafka_producer_case
-py -m producers.kafka_producer_pri 
+
 ```
 
 Mac/Linux:
 ```zsh
 source .venv/bin/activate
 python3 -m producers.kafka_producer_case
+python3 -m producers.kafka_producer_pri
 ```
 
 ## Task 5. Start a Kafka Consumer
@@ -93,7 +94,7 @@ When resuming work on this project:
 3. Start the Kafka service.
 4. Activate your local project virtual environment (.env).
 
-## Save Space
+## Save Spacepy -m producers.kafka_producer_pri 
 To save disk space, you can delete the .venv folder when not actively working on this project.
 You can always recreate it, activate it, and reinstall the necessary packages later. 
 Managing Python virtual environments is a valuable skill. 
