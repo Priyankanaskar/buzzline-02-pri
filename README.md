@@ -56,6 +56,7 @@ Windows:
 ```shell
 .venv\Scripts\activate
 py -m producers.kafka_producer_case
+py -m producers.kafka_producer_pri 
 ```
 
 Mac/Linux:
